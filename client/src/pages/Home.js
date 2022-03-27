@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Marks from "../components/Marks";
 import "../components/styles.css";
@@ -6,31 +6,29 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 function Home() {
-
   const [details, setDetails] = useState({ en_no: "", dob: "" });
   const [authstdnt, setAuthstdnt] = useState("");
   const [error, setError] = useState("");
-  
-  const Login = async (details) =>{
-    axios.get(`http://localhost:5000/student/authstudent/${details.en_no}`, )
+
+  const Login = async (details) => {
+    if (details.en_no !== "") {
+      axios
+        .get(`http://localhost:5000/student/authstudent/${details.en_no}`)
         .then((Response) => {
-
-          const dob = Response.data.dob;
-
-          if (dob === parseInt(details.dob)) {
-
-            setAuthstdnt(details.en_no );
-
+          if (Response.data.dob === parseInt(details.dob)) {
+            setAuthstdnt(details.en_no);
           } else {
             setError("Incorrect Enrollment No. or DOB");
           }
         });
-  }
-  const Logout=()=> {
-    // e.preventDefault();
-    setAuthstdnt({});
-    // this.forceUpdate();
-  }
+    } else {
+      setError("Enter Enrollment No.");
+    }
+  };
+  const Logout = () => {
+    setAuthstdnt("");
+    setDetails("");
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -43,8 +41,11 @@ function Home() {
       <Navbar en_no={authstdnt} Logout={Logout} />
       {authstdnt === "" ? (
         <div className="row" id="form">
-          <div className="col-md-3 col-lg-3"></div>
-          <form onSubmit={submitHandler} className="form col-md-6 col-lg-6">
+          <div className="col-md-3 col-lg-4"></div>
+          <form
+            onSubmit={submitHandler}
+            className="form col-sm-12 col-md-6 col-lg-4 my-5 py-5 px-5 "
+          >
             {error !== "" ? <div className="error">{error}</div> : ""}
             <div className="mb-3 form-field">
               <label htmlFor="exampleInputEmail1" className="form-label">
@@ -54,7 +55,7 @@ function Home() {
                 type="text"
                 className="form-control"
                 id="en_no"
-                placeholder="eg.UIXXECXX"
+                placeholder="UIXXECXX"
                 name="en_no"
                 onChange={(e) =>
                   setDetails({ ...details, en_no: e.target.value })
@@ -80,12 +81,12 @@ function Home() {
             </div>
             <input type="submit" value="LOGIN" id="btn" />
           </form>
-          <div className="col-md-6 col-lg-3"></div>
+          <div className="col-md-6 col-lg-4"></div>
         </div>
       ) : (
         <Marks en_no={authstdnt} />
       )}
-      <Footer/>
+      <Footer />
     </>
   );
 }
