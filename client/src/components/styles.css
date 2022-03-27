@@ -30,11 +30,12 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   border: 3px solid #FF9A03;
   padding-left: 2%;
   padding-right: 2%;
-  color: white;
+  color: #1A0033;
   width: fit-content; 
 }
 #logout:hover{
   background-color: #1A0033;
+  color: #FF9A03;
 }
 
 /* Login Form */
@@ -64,11 +65,12 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   border: 3px solid #FF9A03;
   padding-left: 4%;
   padding-right: 4%;
-  color: white;
+  color: #1A0033;
+  font-weight: 600;
 }
 #btn:hover{
   background-color: #1A0033;
-  /* border-radius: 100px; */
+  color: #FF9A03;
 }
 #form{
   width: inherit;

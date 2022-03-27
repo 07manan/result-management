@@ -2,7 +2,10 @@ import ResultModel from "../models/Result.js"
 import Studentdata from "../models/Studentdata.js";
 
 export const getResult =  async (req,res)=>{
-    ResultModel.find({  }  ,(error,result)=>{
+
+  const en_no = req.params.en_no;
+  
+    ResultModel.find({ en_no:en_no }  ,(error,result)=>{
       if(error){
         res.send(error);
       }
@@ -11,16 +14,13 @@ export const getResult =  async (req,res)=>{
   };
 
   export const authstudent =  async (req,res)=>{
-    const {en_no , dob} = req.body;
-    // const student = await 
-    Studentdata.findOne( { en_no:"UI20EC48" },(error,student)=>{
+    
+    const en_no = req.params.en_no
+
+    Studentdata.findOne( { en_no:en_no },(error,student)=>{
       if(error){
         res.send(error);
       }
       res.send(student);
     } );
-
-    // if(student){
-    //   console.log(student);
-    // }
   };

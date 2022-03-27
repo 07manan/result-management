@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./styles.css";
 
-export default function Marks({en_no}) {
+export default function Marks({ en_no }) {
   const [marksList, setmarkslist] = useState([]);
-
+  
   useEffect(() => {
-    axios.get("http://localhost:5000/student/read").then((Response) => {
+    axios.get(`http://localhost:5000/student/read/${en_no}`).then((Response) => {
       setmarkslist(Response.data);
     });
-  }, []);
+  },[en_no] );
 
   return (
     <div className="marks">
@@ -17,13 +17,13 @@ export default function Marks({en_no}) {
 
       <ul>
         {marksList.map((val, key) => {
-          if (val.en_no === en_no) {
+          
             return (
-              <li key={key} >
+              <li key={key}>
                 {val.marks} marks in {val.exam_name}
               </li>
             );
-          }
+          
         })}
       </ul>
     </div>
