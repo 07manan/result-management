@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('/addadmindata', addAdmin);
 router.get('/authadmin/:username',authAdmin);
 router.get('/addstudent',addstudent);
-router.get('/adddata',addData);
+router.get('/adddata/:en_no/:marks/:exam_name',addData);
 
 
 export default router;

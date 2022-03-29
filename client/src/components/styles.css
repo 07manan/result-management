@@ -39,6 +39,21 @@ body {
   color: #ff9a03;
 }
 
+#adminloginbtn{
+  display: block;
+  margin: auto;
+  background-color: #ff9a03;
+  border: 3px solid #ff9a03;
+  padding-left: 2%;
+  padding-right: 2%;
+  color: #1a0033;
+  /* width: fit-content; */
+}
+#adminloginbtn:hover{
+  background-color: #1a0033;
+  color: #ff9a03;
+}
+
 /* Login Form */
 .form {
   /* margin: 25px;
@@ -119,4 +134,84 @@ body {
 
 .marks ul li {
   margin: 7px;
+}
+
+
+/* Admin DashBoard */
+
+.admindash{
+  margin: 5%;
+}
+.result{
+  border: 2px solid #ff9a03;
+  padding: 2.5%;
+}
+.uploadfile::before{
+  content: "+ Add Result";
+  background-color: #ff9a03;
+  border-radius: 5px;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: black;
+}
+.uploadfile{
+  border: 3px solid #ff9a03;
+  border-radius: 5px;
+  padding: 5px;
+  color: white;
+  margin-bottom: 15px;
+}
+.result input::-webkit-file-upload-button{
+  visibility: hidden;
+  width: 0%;
+}
+.result p{
+  color: white;
+}
+
+.table thead tr th,.table tbody tr th{
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+  padding-left: 15px;
+}
+
+#uploadform{
+  display: flex;
+  flex-direction: row;
+}
+#exam-name{
+  width: fit-content;
+  display: inline-block;
+  margin-left: 5%;
+  padding: 7px;
+}
+.result label{
+  color: white;
+}
+.button{
+  display: block;
+  background-color: #ff9a03;
+  font-weight: 600;
+  margin: auto;
+}
+
+#cancel-upload{
+  background-color: white;
+  margin-top: 2%;
+  margin-left: auto;
+}
+#confirm-upload{
+  background-color: #14dd02;
+  display: flex;
+  margin-left: 5%;
+  margin-right: 4%;
+  font-weight: 600;
+  margin-top: 2%;
+}
+.upload-ctrl{
+  display: flex;
+  font-weight: 600;
+  flex-direction: row;
 }

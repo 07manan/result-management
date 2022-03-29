@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "./styles.css";
 
-function Navbar({ en_no, Logout }) {
+function Navbar({ en_no, Logout,admin,LogoutA }) {
   return (
     <div>
       <nav className="navbar navbar-expand-lg">
@@ -28,16 +28,26 @@ function Navbar({ en_no, Logout }) {
                   Home
                 </NavLink>
               </li>
+              <li className="nav-item">
+                {(en_no === "" && admin ==="") ? (
+                  <NavLink className="nav-link active" aria-current="page" to="/admin">
+                  Admin Login
+                </NavLink>
+                ):("") }
+              </li>
             </ul>
             <ul className="navbar-nav ">
               <li className="nav-item" >
-                {en_no !== "" ? (
+                {(en_no !== "") ? (
                     <button id="logout" className="px-4" onClick={Logout}>
                       Logout
                     </button>
-                ) : (
-                  ""
-                )}
+                ) : ("")}
+                {(admin !=="") ? (
+                  <button id="logout" className="px-4" onClick={LogoutA}>
+                  Admin Logout
+                </button>
+                ):("")}
               </li>
             </ul>
           </div>

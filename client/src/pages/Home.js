@@ -27,6 +27,7 @@ function Home() {
   };
   const Logout = () => {
     setAuthstdnt("");
+    setError("");
     setDetails("");
   };
 
@@ -38,7 +39,7 @@ function Home() {
 
   return (
     <>
-      <Navbar en_no={authstdnt} Logout={Logout} />
+      <Navbar en_no={authstdnt} Logout={Logout} admin={""} />
       {authstdnt === "" ? (
         <div className="row" id="form">
           <div className="col-md-3 col-lg-4"></div>

@@ -13,7 +13,7 @@ export const addstudent =  async (req,res)=>{
   };
 
   export const addData =  async (req,res)=>{
-    const result = new Result({en_no:"UI20EC42", marks:"9",exam_name:"classtest3"});
+    const result = new Result({ en_no:req.params.en_no , marks:req.params.marks , exam_name: req.params.exam_name });
     try {
       await result.save();
       res.send("data inserted");
