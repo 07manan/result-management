@@ -178,9 +178,11 @@ body {
 }
 
 #uploadform{
-  display: flex;
+  display:flex ;
+  /* width: inherit; */
   flex-direction: row;
 }
+
 #exam-name{
   width: fit-content;
   display: inline-block;

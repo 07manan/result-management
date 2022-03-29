@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { Marksexcel } from "./Marksexcel";
 import * as xlsx from "xlsx";
 import "./styles.css";
+import axios from "axios";
 
 export default function Admindash() {
   const [excelFile, setExcelFile] = useState(null);
   const [excelFileError, setExcelFileError] = useState(null);
   const [excelData, setExcelData] = useState(null);
+  const [examname, setExamName] = useState(null);
 
   const fileType = [
     "application/vnd.ms-excel",
@@ -37,11 +39,21 @@ export default function Admindash() {
     setExcelData(null);
   }
 
-  const Upload = (e) =>{
+  const Upload = async (e) =>{
     e.preventDefault();
+    let i=0;
+    if(examname!==null){
+      while(i<excelData.length){
+        axios.post(`http://localhost:5000/admin/adddata/${excelData[i].en_no}/${excelData[i].marks}/${examname}`)
+        i++;
+      }
+      setExcelData(null);
+      setExcelFileError(null);
+    } else {
+      setExcelFileError("Pleasr write exam name.")
+    }
 
-    console.log(excelData);
-    setExcelData(null);
+
   }
 
   const handleSubmit = (e) => {
@@ -55,7 +67,7 @@ export default function Admindash() {
       let i=0;
 
       while(i<data.length){
-        data[i].en_no = rawdata[0].en_no.toUpperCase();
+        data[i].en_no = rawdata[i].en_no.toUpperCase();
         i++;
       }
 
@@ -68,14 +80,14 @@ export default function Admindash() {
   return (
     <>
       <div className="rows admindash">
-        <div className="col-8 result ">
+        <div className="col-lg-9 col-md-12 col-sm-12 result ">
           <form
             className="form-group"
             autoComplete="off"
             onSubmit={handleSubmit}
           >
             <div className="rows" id="uploadform">
-              <div className="col-6">
+              <div className="col-lg-md-6 col-md-6 col-sm-6">
                 <input
                   type="file"
                   className=" uploadfile"
@@ -83,12 +95,13 @@ export default function Admindash() {
                   required
                 />
               </div>
-              <div className="col-6">
+              <div className="col-lg-6 col-md-6 col-sm-6">
                 <label>Exam Name:</label>
                 <input
                   className="form-control"
                   id="exam-name"
                   type="text"
+                  onChange={(e)=>{ setExamName(e.target.value) }}
                   placeholder="Exam name"
                 />
               </div>
@@ -138,7 +151,7 @@ export default function Admindash() {
             ) : ("")}
           </div>
         </div>
-        <div className="col-2"></div>
+        <div className="col-lg-3 col-sm-12 col-md-12"></div>
       </div>
     </>
   );
