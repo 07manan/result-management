@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Marksexcel } from "./Marksexcel";
+import Addusers from "./Addusers";
 import * as xlsx from "xlsx";
 import "./styles.css";
 import axios from "axios";
@@ -9,6 +10,9 @@ export default function Admindash() {
   const [excelFileError, setExcelFileError] = useState(null);
   const [excelData, setExcelData] = useState(null);
   const [examname, setExamName] = useState(null);
+  var notifuploadPlaceholder = document.getElementById(
+    "notifuploadPlaceholder"
+  );
 
   const fileType = [
     "application/vnd.ms-excel",
@@ -34,26 +38,35 @@ export default function Admindash() {
     }
   };
 
-  const Cancelupload = (e) =>{
+  const Cancelupload = (e) => {
     e.preventDefault();
     setExcelData(null);
-  }
+  };
 
-  const Upload = async (e) =>{
+  const Upload = async (e) => {
     e.preventDefault();
-    let i=0;
-    if(examname!==null){
-      while(i<excelData.length){
-        axios.post(`http://localhost:5000/admin/adddata/${excelData[i].en_no}/${excelData[i].marks}/${examname}`)
+    let i = 0;
+    if (examname !== null) {
+      while (i < excelData.length) {
+        axios.post(
+          `http://localhost:5000/admin/adddata/${excelData[i].en_no}/${excelData[i].marks}/${examname}`
+        );
         i++;
       }
+      notifUpload();
       setExcelData(null);
       setExcelFileError(null);
     } else {
-      setExcelFileError("Pleasr write exam name.")
+      setExcelFileError("Pleasr write exam name.");
     }
+  };
 
+  function notifUpload() {
+    var wrapper = document.createElement("div");
+    wrapper.innerHTML =
+      '<div class="alert alert-dismissible" role="alert">Result uploaded successfully!!<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
 
+    notifuploadPlaceholder.append(wrapper);
   }
 
   const handleSubmit = (e) => {
@@ -64,9 +77,9 @@ export default function Admindash() {
       const worksheet = workbook.Sheets[worksheetName];
       const rawdata = xlsx.utils.sheet_to_json(worksheet);
       const data = xlsx.utils.sheet_to_json(worksheet);
-      let i=0;
+      let i = 0;
 
-      while(i<data.length){
+      while (i < data.length) {
         data[i].en_no = rawdata[i].en_no.toUpperCase();
         i++;
       }
@@ -80,7 +93,8 @@ export default function Admindash() {
   return (
     <>
       <div className="rows admindash">
-        <div className="col-lg-9 col-md-12 col-sm-12 result ">
+        <div className="col-lg-9  result ">
+          <div id="notifuploadPlaceholder"></div>
           <form
             className="form-group"
             autoComplete="off"
@@ -101,7 +115,9 @@ export default function Admindash() {
                   className="form-control"
                   id="exam-name"
                   type="text"
-                  onChange={(e)=>{ setExamName(e.target.value) }}
+                  onChange={(e) => {
+                    setExamName(e.target.value);
+                  }}
                   placeholder="Exam name"
                 />
               </div>
@@ -139,19 +155,25 @@ export default function Admindash() {
                 )}
               </tbody>
             </table>
-            {(excelData!==null) ? (
+            {excelData !== null ? (
               <div className="upload-ctrl">
-              <button onClick={Cancelupload} className="btn" id="cancel-upload">
-                Cancel
-              </button>
-              <button onClick={Upload} className="btn" id="confirm-upload">
-                Upload
-              </button>
-            </div>
-            ) : ("")}
+                <button
+                  onClick={Cancelupload}
+                  className="btn"
+                  id="cancel-upload"
+                >
+                  Cancel
+                </button>
+                <button onClick={Upload} className="btn" id="confirm-upload">
+                  Upload
+                </button>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </div>
-        <div className="col-lg-3 col-sm-12 col-md-12"></div>
+        <div className="col-lg-3 "><Addusers/></div>
       </div>
     </>
   );
