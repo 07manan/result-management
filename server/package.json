@@ -7,7 +7,7 @@
   "proxy": "http://localhost:5000",
   "scripts": {
     "start": "nodemon index.js",
-    "server": "node index.js"
+    "serve": "node index.js"
   },
   "keywords": [],
   "author": "",
