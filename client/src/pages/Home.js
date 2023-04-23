@@ -13,7 +13,9 @@ function Home() {
   const Login = async (details) => {
     if (details.en_no !== "") {
       axios
-        .get(`http://localhost:5000/student/authstudent/${details.en_no}`)
+        .get(
+          `${process.env.REACT_APP_BACKEND_URL}/student/authstudent/${details.en_no}`
+        )
         .then((Response) => {
           if (Response.data.dob === parseInt(details.dob)) {
             setAuthstdnt(details.en_no);

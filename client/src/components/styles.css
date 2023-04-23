@@ -121,7 +121,7 @@ body {
 
 /* Footer */
 .footer {
-  margin-top: calc(height);
+  /* margin-top: calc(height); */
   margin-left: 0;
   width: 100%;
   color: white;

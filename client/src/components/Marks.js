@@ -4,12 +4,14 @@ import "./styles.css";
 
 export default function Marks({ en_no }) {
   const [marksList, setmarkslist] = useState([]);
-  
+
   useEffect(() => {
-    axios.get(`http://localhost:5000/student/read/${en_no}`).then((Response) => {
-      setmarkslist(Response.data);
-    });
-  },[en_no] );
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_URL}/student/read/${en_no}`)
+      .then((Response) => {
+        setmarkslist(Response.data);
+      });
+  }, [en_no]);
 
   return (
     <div className="marks">
@@ -17,13 +19,11 @@ export default function Marks({ en_no }) {
 
       <ul>
         {marksList.map((val, key) => {
-          
-            return (
-              <li key={key}>
-                {val.marks} marks in {val.exam_name}
-              </li>
-            );
-          
+          return (
+            <li key={key}>
+              {val.marks} marks in {val.exam_name}
+            </li>
+          );
         })}
       </ul>
     </div>

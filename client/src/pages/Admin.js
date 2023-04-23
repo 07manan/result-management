@@ -12,7 +12,9 @@ const Admin = () => {
   const LoginA = async (detailsA) => {
     if (detailsA.en_no !== "") {
       axios
-        .get(`http://localhost:5000/admin/authadmin/${detailsA.username}`)
+        .get(
+          `${process.env.REACT_APP_BACKEND_URL}/admin/authadmin/${detailsA.username}`
+        )
         .then((Response) => {
           if (Response.data.password === detailsA.password) {
             setAdminauth(detailsA.username);

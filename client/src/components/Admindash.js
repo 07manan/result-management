@@ -49,7 +49,7 @@ export default function Admindash() {
     if (examname !== null) {
       while (i < excelData.length) {
         axios.post(
-          `http://localhost:5000/admin/adddata/${excelData[i].en_no}/${excelData[i].marks}/${examname}`
+          `${process.env.REACT_APP_BACKEND_URL}/admin/adddata/${excelData[i].en_no}/${excelData[i].marks}/${examname}`
         );
         i++;
       }
@@ -173,7 +173,9 @@ export default function Admindash() {
             )}
           </div>
         </div>
-        <div className="col-lg-3 "><Addusers/></div>
+        <div className="col-lg-3 ">
+          <Addusers />
+        </div>
       </div>
     </>
   );
